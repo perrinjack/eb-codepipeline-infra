@@ -15,12 +15,12 @@ resource "aws_codepipeline" "codepipeline" {
       category         = "Source"
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
-      version          = "1"
+      version          = "2"
       output_artifacts = ["source_output"]
 
       configuration = {
-        ConnectionArn    = aws_codestarconnections_connection.example.arn
-        FullRepositoryId = "my-organization/example"
+        ConnectionArn    = aws_codestarconnections_connection.github.arn
+        FullRepositoryId = "${var.github_name}/${var.repository_name}"
         BranchName       = "main"
       }
     }
@@ -36,10 +36,10 @@ resource "aws_codepipeline" "codepipeline" {
       provider         = "CodeBuild"
       input_artifacts  = ["source_output"]
       output_artifacts = ["build_output"]
-      version          = "1"
+      version          = "2"
 
       configuration = {
-        ProjectName = "test"
+        ProjectName = aws_codebuild_project.nest_build
       }
     }
   }
@@ -47,13 +47,13 @@ resource "aws_codepipeline" "codepipeline" {
 
 
 // create this or create it already and pull in with data block instead.
-resource "aws_codestarconnections_connection" "example" {
-  name          = "example-connection"
+resource "aws_codestarconnections_connection" "github" {
+  name          = "github-connection"
   provider_type = "GitHub"
 }
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "test-bucket"
+  bucket = "${var.app_name}-codepipeline-bucket"
 }
 
 resource "aws_s3_bucket_public_access_block" "codepipeline_bucket_pab" {
@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "codepipeline_role" {
-  name               = "test-role"
+  name               = "code-pipeline-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
@@ -104,7 +104,7 @@ data "aws_iam_policy_document" "codepipeline_policy" {
   statement {
     effect    = "Allow"
     actions   = ["codestar-connections:UseConnection"]
-    resources = [aws_codestarconnections_connection.example.arn]
+    resources = [aws_codestarconnections_connection.github.arn]
   }
 
   statement {
