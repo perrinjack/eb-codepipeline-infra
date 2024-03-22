@@ -18,7 +18,7 @@ resource "aws_iam_role" "code_build_role" {
 
 resource "aws_codebuild_project" "nest_build" {
   name         = "${var.app_name}-codebuild-project"
-  service_role = aws_iam_role.code_build_role
+  service_role = aws_iam_role.code_build_role.arn
 
   artifacts {
     type = "CODEPIPELINE"
