@@ -39,7 +39,7 @@ resource "aws_codepipeline" "codepipeline" {
       version          = "2"
 
       configuration = {
-        ProjectName = aws_codebuild_project.nest_build
+        ProjectName = aws_codebuild_project.nest_build.name
       }
     }
   }
