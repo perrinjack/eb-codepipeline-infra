@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "assume_role" {
+data "aws_iam_policy_document" "assume_role_code_build" {
   statement {
     effect = "Allow"
 
@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "assume_role" {
 
 resource "aws_iam_role" "code_build_role" {
   name               = "code_build_role"
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  assume_role_policy = data.aws_iam_policy_document.assume_role_code_build.json
 }
 
 resource "aws_codebuild_project" "nest_build" {
