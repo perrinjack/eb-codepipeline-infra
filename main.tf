@@ -53,7 +53,7 @@ resource "aws_codepipeline" "codepipeline" {
 # }
 
 data "aws_codestarconnections_connection" "github" {
-  name = ghub-connection
+  name = "ghub-connection"
 }
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
@@ -108,7 +108,7 @@ data "aws_iam_policy_document" "codepipeline_policy" {
   statement {
     effect    = "Allow"
     actions   = ["codestar-connections:UseConnection"]
-    resources = [aws_codestarconnections_connection.github.arn]
+    resources = [data.aws_codestarconnections_connection.github.arn]
   }
 
   statement {
