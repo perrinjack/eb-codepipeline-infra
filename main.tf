@@ -48,6 +48,7 @@ resource "aws_codepipeline" "codepipeline" {
 
 // create this or create it already and pull in with data block instead.
 resource "aws_codestarconnections_connection" "github" {
+  provider = aws.use1
   name          = "github-connection"
   provider_type = "GitHub"
 }
