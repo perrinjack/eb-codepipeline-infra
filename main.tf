@@ -19,7 +19,7 @@ resource "aws_codepipeline" "codepipeline" {
       output_artifacts = ["source_output"]
 
       configuration = {
-        ConnectionArn    = aws_codestarconnections_connection.github.arn
+        ConnectionArn    = data.aws_codestarconnections_connection.github.arn
         FullRepositoryId = "${var.github_name}/${var.repository_name}"
         BranchName       = "main"
       }
