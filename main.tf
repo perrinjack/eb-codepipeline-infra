@@ -53,7 +53,7 @@ resource "aws_codepipeline" "codepipeline" {
 # }
 
 data "aws_codestarconnections_connection" "github" {
-  arn = "arn:aws:codestar-connections:eu-west-1:002888156858:connection/e87b937c-ec3b-415d-b9b7-c678a7689852"
+  arn = "arn:aws:codestar-connections:us-east-1:002888156858:connection/f8a9792d-a026-45dc-a860-282ac9ff2ca4"
 }
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
