@@ -7,14 +7,14 @@ terraform {
     }
   }
 
-  required_version = ">= 1.1.2"
+  required_version = ">= 1.7.5"
 }
 
 provider "aws" {
   region = "eu-west-1"
-  alias  = "use1"
 }
 
 provider "aws" {
   region = "us-east-1"
+  alias  = "use1"
 }

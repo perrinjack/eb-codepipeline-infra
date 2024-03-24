@@ -53,7 +53,7 @@ resource "aws_codepipeline" "codepipeline" {
 # }
 
 data "aws_codestarconnections_connection" "github" {
-  name = "ghub-connection"
+  arn = "arn:aws:codestar-connections:eu-west-1:002888156858:connection/e87b937c-ec3b-415d-b9b7-c678a7689852"
 }
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
